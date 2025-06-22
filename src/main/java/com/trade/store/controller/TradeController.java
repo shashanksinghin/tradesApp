@@ -1,6 +1,5 @@
 package com.trade.store.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +21,14 @@ import com.trade.store.model.Trade;
 public class TradeController {
 
 	/**
-	 * 
+	 * This producer will push the trade to kafka topic
 	 */
-	@Autowired
 	private TradeProducer tradeProducer;
 
+	
+	public TradeController(TradeProducer tradeProducer) {
+		this.tradeProducer = tradeProducer;
+	}
 	/**
 	 * a POST API which will read the trade and pass on to kafka topic.
 	 * 
