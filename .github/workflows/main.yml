@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'temurin'
+          distribution: 'zulu'
 
       - name: Build & Run Tests
         run: mvn clean test
