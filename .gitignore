@@ -1,0 +1,69 @@
+# Compiled class files
+target/
+*.class
+
+# Logs
+logs/
+*.log
+
+# Spring Boot specific
+*.jar
+*.war
+*.ear
+
+# Maven specific
+mvnw
+mvnw.cmd
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# IDE and OS-specific files
+### IntelliJ ###
+.idea/
+*.iml
+*.iws
+out/
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+*.bin
+
+### VS Code ###
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node modules (if frontend exists)
+node_modules/
+
+# Database files
+*.h2.db
+*.mv.db
+*.sql
+*.sqlite
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# GitHub Actions cache
+.github/workflows/*.bak
+
+# Kafka Logs (if running locally)
+kafka-logs/
+zookeeper/
+
+# Ignore test reports
+surefire-reports/
+failsafe-reports/
