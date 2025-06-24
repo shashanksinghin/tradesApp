@@ -48,8 +48,17 @@ jobs:
 
       - name: Build & Run Tests
         run: mvn clean test
+        
       - name: Generate JaCoCo report
         run: mvn jacoco:report
+        
+      - name: Upload Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: |
+            ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+            ${{ github.workspace }}/target/site/jacoco/index.html
   
   analysis:
     name: Analysis
