@@ -125,8 +125,6 @@ class TradeServiceTest {
 	@DisplayName("Should reject trade if incoming version is lower than existing")
 	void testRejectLowerVersionTrade() {
 		when(tradeRepository.findByTradeId("T2")).thenReturn(List.of(existingTrade));
-//		when(tradeRepository.save(any())).thenReturn(Optional.empty());
-//		when(tradeAuditRepository.save(any())).thenReturn(Optional.empty());
 
 		final Trade lowerVersionTrade = new Trade("T2", 1, "CP-1", "B1", LocalDate.now().plusDays(10), LocalDate.now(), false);
 		final Exception exception = assertThrows(InvalidTradeException.class, () -> tradeService.processTrade(lowerVersionTrade));
