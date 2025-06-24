@@ -1,5 +1,8 @@
 package com.trade.store.config;
 
+import static org.junit.Assert.assertNotNull;
+
+import org.apache.kafka.clients.admin.NewTopic;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -23,7 +26,8 @@ class KafkaConfigTest {
 	
 	@Test
 	void testTradeTopic() {
-		kafkaConfig.tradeTopic();
+		NewTopic newTopic = kafkaConfig.tradeTopic();
+		assertNotNull(newTopic);
 	}
 
 }
