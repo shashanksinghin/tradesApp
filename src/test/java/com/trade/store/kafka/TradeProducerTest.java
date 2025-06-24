@@ -8,6 +8,9 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.TopicPartition;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -71,6 +74,43 @@ class TradeProducerTest {
 		CompletableFuture<SendResult<String, Trade>> completableFuture = new CompletableFuture<SendResult<String, Trade>>();
 
 		when(kafkaTemplate.send(any(), any(), any())).thenReturn(completableFuture);
+		
+		ProducerRecord<String, Trade> producerRecord = new ProducerRecord<String, Trade>(topic, trade);
+		RecordMetadata recordMetadata = new RecordMetadata(new TopicPartition(topic, 3), 0, 0, 0, 0, 0); 
+		SendResult<String, Trade> sendResult = new SendResult<>(producerRecord, recordMetadata);
+		
+		completableFuture.complete(sendResult);
+		
+		tradeProducer.sendTrade(trade);
+
+		// Verify the interaction with KafkaTemplate
+		verify(kafkaTemplate).send(topic, trade.getTradeId(), trade);
+	}
+	
+	/**
+	 * A test to send message on a kafka topic With Exception
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	void testSendTradeWithException() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+		// Get the private field using reflection
+		Field privateField = TradeProducer.class.getDeclaredField("tradeStoreTopic");
+		privateField.setAccessible(true);
+
+		// Populate the private variable
+		privateField.set(tradeProducer, topic);
+
+
+		final Trade trade = new Trade("T1", 1, "CP-1", "B1", LocalDate.now().plusDays(10), LocalDate.now(), false);
+		CompletableFuture<SendResult<String, Trade>> completableFuture = new CompletableFuture<SendResult<String, Trade>>();
+
+		when(kafkaTemplate.send(any(), any(), any())).thenReturn(completableFuture);
+		
+		completableFuture.completeExceptionally(new Exception());
 
 		tradeProducer.sendTrade(trade);
 

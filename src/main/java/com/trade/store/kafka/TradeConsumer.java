@@ -39,6 +39,7 @@ public class TradeConsumer {
 		} catch (InvalidTradeException e) {
 			log.error("Failed to process trade {} due to validation error: {}", trade.getTradeId(), e.getMessage());
 			// Depending on requirements, could send to a dead-letter topic here
+			throw e;
 		} catch (Exception e) {
 			log.error("An unexpected error occurred while processing trade {}: {}", trade.getTradeId(), e.getMessage());
 			// Handle other exceptions

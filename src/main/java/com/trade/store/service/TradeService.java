@@ -56,7 +56,7 @@ public class TradeService {
 		//Store should not allow the trade which has less maturity date then today date.
 		if (trade.getMaturityDate().isBefore(LocalDate.now())) {
 			String errorMessage = "Trade maturity date has passed!";
-			log.error(errorMessage);
+			log.info(errorMessage);
 			throw new InvalidTradeException(errorMessage);
 		}
 
