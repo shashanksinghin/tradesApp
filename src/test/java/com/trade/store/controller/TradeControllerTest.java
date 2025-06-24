@@ -61,5 +61,24 @@ class TradeControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().string("Trade sent for processing."));
 	}
+	
+	/**
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testSendTradeFail() throws Exception {
+
+		final Trade trade = new Trade("T1", 1, "CP-1", "B1", LocalDate.now().plusDays(10), LocalDate.now(), false);
+		doNothing().when(tradeProducer).sendTrade(trade);
+
+		final ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		final String jsonRequest = objectMapper.writeValueAsString(trade);
+
+		mockMvc.perform(post("/tradesFake") // Replace with your endpoint
+				.contentType(MediaType.APPLICATION_JSON).content(jsonRequest))
+				.andExpect(status().is4xxClientError());
+	}
 
 }

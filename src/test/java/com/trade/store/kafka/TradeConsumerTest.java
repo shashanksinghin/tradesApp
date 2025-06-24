@@ -14,26 +14,26 @@ import com.trade.store.model.Trade;
 import com.trade.store.service.TradeService;
 
 /**
- * 
+ * JUnit test case for TradeConsumer class
  * @author shashank
  *
  */
 class TradeConsumerTest {
 
 	/**
-	 * 
+	 * TradeService
 	 */
 	@Mock
 	private TradeService tradeService;
 
 	/**
-	 * 
+	 * TradeConsumer
 	 */
 	@InjectMocks
 	private TradeConsumer tradeConsumer;
 
 	/**
-	 * 
+	 * TradeConsumerTest constructor
 	 */
 	public TradeConsumerTest() {
 		MockitoAnnotations.openMocks(this);
